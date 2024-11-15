@@ -183,5 +183,63 @@ def juego():
 
     print('Ganaste')
 
+def manual(idioma):
+    menu_manual = {
+        'es' : {
+            'desc': 'El juego consiste en recorrer todo el tablero ',
+            board.ROBOT : 'Es el robot',
+            board.OBSTA : 'Es el obstaculo',
+        },
 
-juego()
+        'en' : {
+            'desc':' You have to move around the full board',
+            board.ROBOT : 'This is a pretty robot',
+            board.OBSTA : 'This is a awful robot',
+        },
+
+    }
+
+    for k in menu_manual[idioma]:
+        if k != 'desc':
+            print(f'\t{k} - {menu_manual[idioma][k]}')
+        else:
+            print(menu_manual[idioma])
+    
+    input()
+
+
+def menu():
+
+    mi_menu = {
+        'es' : {
+        '1' : 'Iniciar juego nuevo',
+        '2' : 'Ver manual de juego',
+        '3' : 'Salida'
+        },
+        'en' : {
+        '1' : 'Start new game',
+        '2' : 'Show manual',
+        '3' : 'Exit'
+        },
+    }
+    print('--------------------------------')
+    lang = input('Indique el idioma (en/es): ')
+
+    for k in mi_menu[lang]:
+        print(f'{k}, {mi_menu[lang][k]} ')
+
+    print('--------------------------------')
+    opt = input('ingrese la operacion de preferancia: ')
+
+    if opt == '1':
+        juego()
+    if opt == '2':
+        manual(lang)
+    elif opt == '3':
+        print('nos vemos la proxima: ')
+    else:
+        print('opcion no valida')
+        menu()
+
+menu()
+
