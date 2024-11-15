@@ -1,0 +1,6 @@
+ARRIBA = "W"
+ABAJO = "A"
+DERECHA = "D"
+IZQUIERDA = "S"
+
+EXIT ="X"
