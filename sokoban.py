@@ -187,14 +187,24 @@ def manual(idioma):
     menu_manual = {
         'es' : {
             'desc': 'El juego consiste en recorrer todo el tablero ',
-            board.ROBOT : 'Es el robot',
-            board.OBSTA : 'Es el obstaculo',
+            elemento.PARED : 'Esta es la pared ',
+            elemento.CAJA :  'Esta es la caja',
+            elemento.DESTINO :'Este es el destino',
+            elemento.JUGADOR :'Este es el jugador',
+            elemento.ESP_VAC : 'Este es el espacio vacío',
+            elemento.CAJ_DEST : 'Esta es la caja en destino',
+            elemento.JUG_DEST :  'Este el jugador en destino',
         },
 
         'en' : {
             'desc':' You have to move around the full board',
-            board.ROBOT : 'This is a pretty robot',
-            board.OBSTA : 'This is a awful robot',
+            elemento.PARED :   'This is the wall',
+            elemento.CAJA :    'This is the box',
+            elemento.DESTINO : 'This is the destination',
+            elemento.JUGADOR : 'This is the player',
+            elemento.ESP_VAC : 'This is the empty space',
+            elemento.CAJ_DEST :'This is the box at the destinationl',
+            elemento.JUG_DEST :'This the player at the destination',
         },
 
     }
