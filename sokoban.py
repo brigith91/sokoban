@@ -183,6 +183,9 @@ def juego():
 
     print('Ganaste')
 
+
+juego()
+
 def manual(idioma): 
     """
     Muestra el manual del juego en el idioma seleccionado.
@@ -277,4 +280,3 @@ def menu():
         menu()
 
 menu()
-
