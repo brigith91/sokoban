@@ -174,8 +174,9 @@ def leer_direccion():
     str: La dirección ingresada por el jugador ('W', 'A', 'S', 'D', 'X').
     """
     direccion = input(
-        'Ingrese el movimiento (W:arriba /A:Abajo /S:Izquierda /D:Derecha) o X para salir : ').upper()
-    if direccion in ['W', 'A', 'S', 'D', 'X']:
+        f'Ingrese el movimiento ({mv.DESCRIPCIONES}) : '
+    ).upper()
+    if direccion in mv.MOVIMIENTOS_VALIDOS:
         return direccion
     else:
         return leer_direccion()

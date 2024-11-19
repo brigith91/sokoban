@@ -4,3 +4,7 @@ DERECHA = "D"
 IZQUIERDA = "S"
 
 EXIT ="X"
+
+MOVIMIENTOS_VALIDOS =(ARRIBA, ABAJO, DERECHA, IZQUIERDA, EXIT)
+
+DESCRIPCIONES = f'{ARRIBA}: arriba, {ABAJO}: abajo , {DERECHA}: derecha, {IZQUIERDA}:izquierda, {EXIT}: salir'
