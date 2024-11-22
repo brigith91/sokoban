@@ -33,7 +33,7 @@ def imprimir_tablero(tablero):
     limpiar_pantalla()
     print('      ', end='')
     for i in range(len(tablero[0])):
-        print(i + 1, end='   ')
+        print(i + 1, end='    ')
     print()
 
     for i, fila in enumerate(tablero):
@@ -44,7 +44,7 @@ def imprimir_tablero(tablero):
 
     print('      ', end='')
     for i in range(len(tablero[0])):
-        print(i + 1, end='   ')
+        print(i + 1, end='    ')
     print()
 
 # 2 buscar la posición del jugador
