@@ -63,66 +63,101 @@ def buscar_jugador(tablero):
                 return i, j
     return -1, -1
 
-def mover_jugador(tablero, direccion):
-        fila, columna =buscar_jugador(tablero)
-        fila_obj, columna_obj = fila, columna # asignacion multiple fila y columna objetivo
-
-
-        if direccion == mv.ARRIBA:
-            fila_obj -= 1 # fila = fila  - 1
-        elif direccion == mv.ABAJO:
-            fila_obj += 1 # fila = fila  + 1
-        elif direccion == mv.IZQUIERDA:
-            columna_obj -= 1 #columna = columna  - 1
-        elif direccion == mv.DERECHA:
-            columna_obj += 1 #columna = columna  + 1
+def mover_jugador(tablero, direccion): 
+    """
+    Mueve al jugador en la dirección indicada y actualiza el tablero.
+    Maneja correctamente los destinos y las cajas para evitar errores al pasar por un destino.
+    
+    tablero: lista bidimensional que representa el estado del tablero de juego.
+    direccion (str): La dirección en la que el jugador se moverá (ARRIBA, ABAJO, IZQUIERDA, DERECHA).
+    """
+    # Posición actual del jugador
+    fila, columna = buscar_jugador(tablero)
+    fila_obj, columna_obj = fila, columna
+    if direccion == mv.ARRIBA:
+        fila_obj -= 1
+    elif direccion == mv.ABAJO:
+        fila_obj += 1
+    elif direccion == mv.IZQUIERDA:
+        columna_obj -= 1
+    elif direccion == mv.DERECHA:
+        columna_obj += 1
+    else:
+        print('Dirección no reconocida')
+        return
+    # Movimiento dentro del tablero
+    if fila_obj < 0 or columna_obj < 0 or fila_obj >= len(tablero) or columna_obj >= len(tablero[0]):
+        print('Movimiento no válido')
+        return
+     # Caso 1: objetivoun espacio vacío o un destino
+    if tablero[fila_obj][columna_obj] in [elemento.ESP_VAC, elemento.DESTINO]:
+        # Actualiza la posición actual del jugador
+        tablero[fila][columna] = elemento.DESTINO if tablero[fila][columna] == elemento.JUG_DEST else elemento.ESP_VAC
+        # Mueve al jugador
+        tablero[fila_obj][columna_obj] = elemento.JUG_DEST if tablero[fila_obj][columna_obj] == elemento.DESTINO else elemento.JUGADOR
+    # Caso 2: La celda objetivo es una caja o una caja en destino
+    elif tablero[fila_obj][columna_obj] in [elemento.CAJA, elemento.CAJ_DEST]:
+        # Verifica si la caja ya está en su destino
+        if tablero[fila_obj][columna_obj] == elemento.CAJ_DEST:
+            print("La caja ya está en un destino")
+    # Calcula la posición futura de la caja
+        fila_caja_obj = fila_obj + (fila_obj - fila)
+        columna_caja_obj = columna_obj + (columna_obj - columna)
+        # Verifica si la celda futura de la caja está dentro de los límites y es válida
+        if (0 <= fila_caja_obj < len(tablero) and 0 <= columna_caja_obj < len(tablero[0]) and
+                tablero[fila_caja_obj][columna_caja_obj] in [elemento.ESP_VAC, elemento.DESTINO]):
+            # Mueve la caja a su nueva posición
+            tablero[fila_caja_obj][columna_caja_obj] = (
+                elemento.CAJ_DEST if tablero[fila_caja_obj][columna_caja_obj] == elemento.DESTINO else elemento.CAJA
+            )
+            # Actualiza la posición actual de la caja
+            tablero[fila_obj][columna_obj] = (
+                elemento.DESTINO if tablero[fila_obj][columna_obj] == elemento.CAJ_DEST else elemento.ESP_VAC
+            )
+            # Mueve al jugador a la posición de la caja original
+            tablero[fila][columna] = (
+                elemento.DESTINO if tablero[fila][columna] == elemento.JUG_DEST else elemento.ESP_VAC
+            )
+            tablero[fila_obj][columna_obj] = elemento.JUG_DEST if tablero[fila_obj][columna_obj] == elemento.DESTINO else elemento.JUGADOR
         else:
-            print('No se reconoce la direccion')
-
-        if fila_obj < 0 or columna_obj < 0 or \
-            fila_obj >= len(tablero) or columna_obj >= len(tablero[0]):
-            print('Movimiento no valido')
-            return
-
-        if tablero[fila_obj][columna_obj] == elemento.ESP_VAC:
-            tablero[fila][columna] = elemento.ESP_VAC
-            tablero[fila_obj][columna_obj] = elemento.JUGADOR
-        
-        elif tablero[fila_obj][columna_obj] == elemento.DESTINO:
-            tablero[fila][columna] = elemento.ESP_VAC
-            tablero[fila_obj][columna_obj] = elemento.JUG_DEST
+            print('Movimiento no válido: la caja no puede moverse')
             
-        else:
-                print('Movimiento no valido')
 
-def mover_caja(caja, direccion):
-        fila, columna =buscar_jugador(tablero)
-        fila_obj, columna_obj = fila, columna # asignacion multiple fila y columna objetivo
+    # Caso 3: La celda objetivo no es válida (pared u otro elemento)
+    else:
+        print('Movimiento bloqueado: no se puede avanzar en esta dirección')
 
+def mover_caja(tablero, fila_caja, columna_caja, direccion):
+    """
+    Mueve la caja en la dirección indicada por el movimiento del jugador y actualiza el tablero.
+    tablero (list): Lista bidimensional que representa el estado del tablero de juego.
+    fila_caja (int): Fila donde se encuentra la caja.
+    columna_caja (int): Columna donde se encuentra la caja.
+    direccion (str): Dirección en la que se mueve la caja ('ARRIBA', 'ABAJO', 'IZQUIERDA', 'DERECHA').
+    """
+    fila_caja_obj, columna_caja_obj = fila_caja, columna_caja
+    if direccion == mv.ARRIBA:
+        fila_caja_obj -= 1
+    elif direccion == mv.ABAJO:
+        fila_caja_obj += 1
+    elif direccion == mv.IZQUIERDA:
+        columna_caja_obj -= 1
+    elif direccion == mv.DERECHA:
+        columna_caja_obj += 1
+    if fila_caja_obj < 0 or columna_caja_obj < 0 or fila_caja_obj >= len(tablero) or columna_caja_obj >= len(tablero[0]):
+        print('Movimiento no válido')
+        return
 
-        if direccion == mv.ARRIBA:
-            fila_obj -= 1 # fila = fila  - 1
-        elif direccion == mv.ABAJO:
-            fila_obj += 1 # fila = fila  + 1
-        elif direccion == mv.IZQUIERDA:
-            columna_obj -= 1 #columna = columna  - 1
-        elif direccion == mv.DERECHA:
-            columna_obj += 1 #columna = columna  + 1
-        else:
-            print('No se reconoce la direccion')
+    if tablero[fila_caja_obj][columna_caja_obj] == elemento.ESP_VAC or tablero[fila_caja_obj][columna_caja_obj] == elemento.DESTINO:
+        if tablero[fila_caja][columna_caja] == elemento.CAJ_DEST:
+            tablero[fila_caja][columna_caja] = elemento.DESTINO
 
-        if fila_obj < 0 or columna_obj < 0 or \
-            fila_obj >= len(tablero) or columna_obj >= len(tablero[0]):
-            print('Movimiento no valido')
-            return
-
-        if tablero[fila_obj][columna_obj] == elemento.CAJA:
-            tablero[fila][columna] = elemento.CAJA
-            tablero[fila_obj][columna_obj] = elemento.CAJA.DEST
-
-        else:
-                print('Movimiento no valido')
-
+    tablero[fila_caja][columna_caja] = elemento.ESP_VAC
+    tablero[fila_caja_obj][columna_caja_obj] = elemento.CAJA if tablero[
+            fila_caja_obj][columna_caja_obj] == elemento.ESP_VAC else elemento.CAJ_DEST
+        # Mueve al jugador a la posición de la caja empujada
+    mover_jugador(tablero, direccion)
+    print('No se reconoce la direccion')
 
 
 def leer_direccion():
@@ -138,8 +173,7 @@ def leer_direccion():
         return direccion
     else:
         return leer_direccion()
-
-
+    
 def win(tablero):
     """
     Compara si el jugador ha ganado verificando si todas las cajas están en los destinos.
@@ -157,7 +191,6 @@ def win(tablero):
 
     # Si todas las cajas están en los destinos
     return True
-
 
 def juego():
     """
@@ -208,7 +241,7 @@ def manual(idioma):
             elemento.JUGADOR : 'This is the player',
             elemento.ESP_VAC : 'This is the empty space',
             elemento.CAJ_DEST :'This is the box at the destinationl',
-            elemento.JUG_DEST :'This the player at the destination',.0
+            elemento.JUG_DEST :'This the player at the destination',
         },
 
     }
