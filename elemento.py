@@ -6,15 +6,6 @@ ESP_VAC = ' 🕸'  # espacio vacío
 CAJ_DEST = '🎲'  # caja en destino
 JUG_DEST = '👩'  # jugador en destino
 
-tablero = (
-    [PARED, PARED, PARED, PARED, PARED, PARED, PARED],
-    [PARED, ESP_VAC, ESP_VAC, DESTINO, ESP_VAC, ESP_VAC, PARED],
-    [PARED, ESP_VAC, ESP_VAC, CAJA, DESTINO, ESP_VAC, PARED],
-    [PARED, ESP_VAC, ESP_VAC, JUGADOR, ESP_VAC, ESP_VAC, PARED],
-    [PARED, PARED, CAJA, ESP_VAC, PARED, PARED, PARED],
-    [PARED, ESP_VAC, ESP_VAC, ESP_VAC, ESP_VAC, ESP_VAC, PARED],
-    [PARED, PARED, PARED, PARED, PARED, PARED, PARED],
-)
 
 # Definición de símbolos
 PARED = '🧱'  # símbolo de pared lleno
@@ -35,7 +26,7 @@ def leer_tablero(nivel):
         lineas = f.readlines()
 
         for linea in lineas:
-            # Quitar el último carácter (como \n) y espacios adicionales
+            # Quitar el último carácter y espacios 
             linea = linea[:-1].strip()
 
             if linea in ('', '\n'):
@@ -45,12 +36,12 @@ def leer_tablero(nivel):
                 continue
 
             if seccion == '# VARIABLES':
-                # Leer las definiciones de variables
+                # Leer variables
                 linea = linea.split('=')
                 var = linea[0].strip()
                 tipo = linea[1].strip()
                 
-                # Mapear las variables al símbolo correspondiente
+                # variables al símbolo 
                 if tipo == 'ESPACIO':
                     tipo = ESP_VAC
                 elif tipo == 'JUGADOR':
@@ -69,16 +60,15 @@ def leer_tablero(nivel):
                 variables[var] = tipo
 
             elif seccion == '# TABLERO':
-                # Reemplazar las variables con sus símbolos en el tablero
+                # Reemplaza las variables con sus símbolos en el tablero
                 for var, tipo in variables.items():
                     linea = linea.replace(var, tipo)
 
-                # Convertir la línea en una lista de caracteres y agregarla al tablero
+                # Convierte la línea en una lista de caracteres y la agrega al tablero
                 linea = list(linea)
                 tablero.append(list(linea))
 
     return tablero
 
 if __name__ == '__main__':
-    # Solo invoca la función si necesitas usar el tablero más adelante
     tablero = leer_tablero('nivel_1')
