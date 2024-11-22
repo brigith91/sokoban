@@ -198,7 +198,7 @@ def juego():
     al jugador realizar movimientos y verificando si ha ganado.
     """
     
-    tab = elemento.tablero
+    tab = elemento.leer_tablero('nivel_1')
     imprimir_tablero(tab)
     direccion = leer_direccion()
 
