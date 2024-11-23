@@ -22,9 +22,6 @@ def limpiar_pantalla():
     usando el comando 'cls' y 'clear'.
 """
 
-# 1 imprimir el tablero
-
-
 def imprimir_tablero(tablero):
     """
     Imprime el tablero en la consola con numeración en las filas y columnas para facilitar la visualización.
@@ -46,8 +43,6 @@ def imprimir_tablero(tablero):
     for i in range(len(tablero[0])):
         print(i + 1, end='    ')
     print()
-
-# 2 buscar la posición del jugador
 
 
 def buscar_jugador(tablero):
@@ -99,7 +94,7 @@ def mover_jugador(tablero, direccion):
     elif tablero[fila_obj][columna_obj] in [elemento.CAJA, elemento.CAJ_DEST]:
         # Verifica si la caja ya está en su destino
         if tablero[fila_obj][columna_obj] == elemento.CAJ_DEST:
-            print("La caja ya está en un destino")
+            print()
     # Calcula la posición futura de la caja
         fila_caja_obj = fila_obj + (fila_obj - fila)
         columna_caja_obj = columna_obj + (columna_obj - columna)
@@ -120,7 +115,7 @@ def mover_jugador(tablero, direccion):
             )
             tablero[fila_obj][columna_obj] = elemento.JUG_DEST if tablero[fila_obj][columna_obj] == elemento.DESTINO else elemento.JUGADOR
         else:
-            print('Movimiento no válido: la caja no puede moverse')
+            print('Movimiento no válido')
             
 
     # Caso 3: La celda objetivo no es válida (pared u otro elemento)
@@ -208,6 +203,7 @@ def juego():
         direccion = leer_direccion()
 
     print('Ganaste')
+
 
 def manual(idioma): 
     """
