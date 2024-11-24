@@ -88,6 +88,15 @@ def mover_jugador(tablero, direccion):
     
     tablero: lista bidimensional que representa el estado del tablero de juego.
     direccion (str): La dirección en la que el jugador se moverá (ARRIBA, ABAJO, IZQUIERDA, DERECHA).
+    La función realiza los siguientes pasos:
+    1. Busca la posición actual del jugador en el tablero.
+    2. Calcula la nueva posición basada en la dirección indicada.
+    3. Verifica que el movimiento esté dentro de los límites del tablero.
+    4. Si el objetivo de la nueva posición es un espacio vacío o un destino, mueve al jugador a esa posición.
+    5. Si el objetivo es una caja o una caja en destino, intenta mover la caja en la dirección indicada y actualiza la posición del jugador.
+    6. Si el objetivo es una pared u otro elemento no válido, bloquea el movimiento y muestra un mensaje de error.
+    Returns:
+     La función no devuelve ningún valor, pero modifica el estado del tablero.
     """
     # Posición actual del jugador
     fila, columna = buscar_jugador(tablero)
