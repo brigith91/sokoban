@@ -165,9 +165,8 @@ def win(tablero):
     # Recorre todo el tablero buscando cajas
     for fila in range(len(tablero)):
         for columna in range(len(tablero[0])):
-            if tablero[fila][columna] == elemento.CAJA:  # Si encuentra una caja
                 # Verifica si la caja no está en un destino
-                if tablero[fila][columna] != elemento.DESTINO:  # Compara si la caja no está en su destino
+                if tablero[fila][columna] == elemento.DESTINO:  # Compara si la caja no está en su destino
                     return False
 
     # Si todas las cajas están en los destinos
