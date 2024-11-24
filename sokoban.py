@@ -234,6 +234,7 @@ def manual(idioma):
             print(menu_manual[idioma])
     
     input()
+    
 
 
 def menu():
@@ -277,7 +278,8 @@ def menu():
         juego()
     if opt == '2':
         manual(lang)
+        menu()
     elif opt == '3':
-         print('Nos vemos la próxima.' if lang == 'es' else 'See you next time.')
+        print('Nos vemos la próxima.' if lang == 'es' else 'See you next time.')
 
 menu()
