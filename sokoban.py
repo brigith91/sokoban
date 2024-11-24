@@ -224,14 +224,14 @@ def manual(idioma):
             elemento.CAJ_DEST :'This is the box at the destinationl',
             elemento.JUG_DEST :'This the player at the destination',
         },
-
     }
+
 
     for k in menu_manual[idioma]:
         if k != 'desc':
             print(f'\t{k} - {menu_manual[idioma][k]}')
         else:
-            print(menu_manual[idioma])
+            print(menu_manual[idioma]['desc'])
     
     input()
     
