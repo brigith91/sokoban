@@ -1,15 +1,21 @@
-# VARIABLES
-P = MURO
-C = CAJA
-D = DESTINO
-J = JUGADOR
-S = ESPACIO
-T = CAJ_DEST
-U = JUG_DEST
+# VARIABLES: Definición de los símbolos utilizados para representar los diferentes elementos del juego
 
-# TABLERO
-PPPPPPP
-PJSCDSP
-PSCSSSP
-PSSDSSP
-PPPPPPP
+P = MURO         # Representa las paredes del mapa.
+C = CAJA         # Representa las cajas.
+D = DESTINO      # Representa el destino donde las cajas deben ser colocadas.
+J = JUGADOR      # Representa al jugador.
+S = ESPACIO      # Representa el espacio vacío.
+T = CAJ_DEST     # Representa una caja que ha sido colocada en su destino.
+U = JUG_DEST     # Representa al jugador que ha llegado a un destino.
+
+# TABLERO: Representación del mapa del juego, con las posiciones iniciales de los elementos.
+
+
+PPPPPPP  # Fila 1: MURO (paredes del mapa).
+PJSCDSP  # Fila 2: Pared en los bordes, jugador 'J', caja 'C', destino 'D' y espacio vacío 'S'.
+PSCSSSP  # Fila 3: Pared en los bordes, caja 'C', espacio vacío 'S'.
+PSSDSSP  # Fila 4: Pared en los bordes, espacio vacío 'S', cajas en destino 'D', espacio vacío 'S'.
+PPPPPPP  # Fila 5: MURO (paredes del mapa).
+
+# Este tablero representa un nivel inicial del juego donde el jugador debe mover las cajas
+# a los destinos indicados.

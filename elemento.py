@@ -1,3 +1,7 @@
+"""
+Símbolos utilizados para representar elementos en el juego
+"""
+
 PARED = '🧱'  # símbolo de pared 
 CAJA = '📦'   # símbolo de caja
 DESTINO = '⭕'  # símbolo de destino
@@ -7,6 +11,11 @@ CAJ_DEST = '🎲'  # caja en destino
 JUG_DEST = '👩'  # jugador en destino
 
 def leer_tablero(nivel):
+    """
+    Lee el archivo de un nivel y construye un tablero con los símbolos correspondientes.
+    nivel (str): El nombre del archivo del nivel (sin extensión).
+    Returns:list: Un tablero representado como una lista de listas, donde cada elemento es un símbolo del tablero.
+    """
     tablero = []
     seccion = ''
     variables = {}
@@ -26,7 +35,9 @@ def leer_tablero(nivel):
                 continue
 
             if seccion == '# VARIABLES':
-                # Leer variables
+                """
+                Procesa las variables definidas en el archivo y las asigna a sus símbolos.
+                """
                 linea = linea.split('=')
                 var = linea[0].strip()
                 tipo = linea[1].strip()
@@ -47,7 +58,7 @@ def leer_tablero(nivel):
                 elif tipo == 'JUG_DEST':
                     tipo = JUG_DEST
 
-                variables[var] = tipo
+                variables[var] = tipo  # Guardar la variable con su símbolo
 
             elif seccion == '# TABLERO':
                 # Reemplaza las variables con sus símbolos en el tablero
@@ -60,5 +71,6 @@ def leer_tablero(nivel):
 
     return tablero
 
+# Llamar a la función para leer y construir el tablero del nivel 1
 if __name__ == '__main__':
     tablero = leer_tablero('nivel_1')

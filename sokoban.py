@@ -96,7 +96,7 @@ def mover_jugador(tablero, direccion):
     5. Si el objetivo es una caja o una caja en destino, intenta mover la caja en la dirección indicada y actualiza la posición del jugador.
     6. Si el objetivo es una pared u otro elemento no válido, bloquea el movimiento y muestra un mensaje de error.
     Returns:
-     La función no devuelve ningún valor, pero modifica el estado del tablero.
+    La función no devuelve ningún valor, pero modifica el estado del tablero.
     """
     # Posición actual del jugador
     fila, columna = buscar_jugador(tablero)
