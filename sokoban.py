@@ -27,24 +27,28 @@ def imprimir_tablero(tablero):
     Imprime el tablero en la consola con numeración en las filas y columnas para facilitar la visualización.
     el tablero (list): Es una lista bidimensional que representa el estado del tablero de juego.
     """
+
     limpiar_pantalla()
-    print('      ', end='')
+
+    print('    ', end='')
     for i in range(len(tablero[0])):
-        print(i + 1, end='    ')
+        print(f'{i + 1} ', end=' ')
     print()
 
     for i, fila in enumerate(tablero):
-        print(f'{i + 1} - | ', end='')
+
+        print(f'{i + 1} | ', end='')
+
         for columna in fila:
-            print(f'{columna} | ', end='')
-        print(f'- {i + 1}')
+            print(columna, end=' ')
 
-    print('      ', end='')
+        print(f'| {i + 1}')
+
+    print('    ', end='')
     for i in range(len(tablero[0])):
-        print(i + 1, end='    ')
+        print(f'{i + 1} ', end=' ')
     print()
-
-
+    
 def buscar_jugador(tablero):
     """
     Busca la posición del jugador en el tablero y retorna las coordenadas (fila, columna).
@@ -290,5 +294,4 @@ def menu():
         menu()
     elif opt == '3':
         print('Nos vemos la próxima.' if lang == 'es' else 'See you next time.')
-
 menu()
