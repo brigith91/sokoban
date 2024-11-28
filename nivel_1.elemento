@@ -1,4 +1,4 @@
-# VARIABLES: 
+# VARIABLES
 
 P = MURO        
 C = CAJA        
@@ -8,7 +8,7 @@ S = ESPACIO
 T = CAJ_DEST  
 U = JUG_DEST 
 
-# TABLERO:
+# TABLERO
 PPPPPPP
 PJSCDSP
 PSCSSSP
