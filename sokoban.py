@@ -14,13 +14,15 @@ import os
 import elemento
 import movimiento as mv
 
+NIVEL_ACTUAL = 1
+LANG_ACTUAL = 'es'
 
 def limpiar_pantalla():
-    os.system('cls' if os.name == 'nt' else 'clear')
-"""
+    """
     Esta función limpia la pantalla en función del sistema operativo.
     usando el comando 'cls' y 'clear'.
-"""
+    """
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 def imprimir_tablero(tablero):
     """
@@ -40,7 +42,10 @@ def imprimir_tablero(tablero):
         print(f'{i + 1} | ', end='')
 
         for columna in fila:
-            print(columna, end=' ')
+            if columna == elemento.ESP_VAC:
+                print(f'{columna} ', end=' ')
+            else:
+                print(columna, end=' ')
 
         print(f'| {i + 1}')
 
@@ -48,6 +53,8 @@ def imprimir_tablero(tablero):
     for i in range(len(tablero[0])):
         print(f'{i + 1} ', end=' ')
     print()
+
+
     
 def buscar_jugador(tablero):
     """
@@ -58,7 +65,7 @@ def buscar_jugador(tablero):
     """
     for i, fila in enumerate(tablero):
         for j, columna in enumerate(fila):
-            if columna == elemento.JUGADOR or columna == elemento.JUG_DEST:
+            if columna in (elemento.JUGADOR, elemento.JUG_DEST):
                 return i, j
     return -1, -1
 
@@ -175,6 +182,8 @@ def win(tablero):
     Retorna:
     bool: True si el jugador ha ganado, False en caso contrario.
     """
+    if NIVEL_ACTUAL == 2:
+        pass
     # Recorre todo el tablero buscando cajas
     for fila in range(len(tablero)):
         for columna in range(len(tablero[0])):
@@ -190,8 +199,10 @@ def juego():
     Función principal del juego. Ejecuta el ciclo de juego, mostrando el tablero, permitiendo
     al jugador realizar movimientos y verificando si ha ganado.
     """
-    
-    tab = elemento.leer_tablero('nivel_1')
+    global NIVEL_ACTUAL
+
+
+    tab = elemento.leer_tablero(F'nivel_{NIVEL_ACTUAL}')
     imprimir_tablero(tab)
     direccion = leer_direccion()
 
@@ -200,6 +211,10 @@ def juego():
         imprimir_tablero(tab)
         direccion = leer_direccion()
 
+    if win(tab):
+        NIVEL_ACTUAL += 1
+    
+
     print('Ganaste')
 
 
@@ -207,7 +222,6 @@ def manual(idioma):
     """
     Muestra el manual del juego en el idioma seleccionado.
     
-    Args:
     idioma (str): El idioma en el que se debe mostrar el manual. 
     Puede ser 'es' para español o 'en' para inglés.
     
@@ -248,7 +262,10 @@ def manual(idioma):
     
     input()
     
+def cambiar_idioma():
 
+    global LANG_ACTUAL
+    LANG_ACTUAL = input('Indique el idioma (en/es): ').lower()
 
 def menu():
     """
@@ -261,16 +278,18 @@ def menu():
         'es' : {
         '1' : 'Iniciar juego nuevo',
         '2' : 'Ver manual de juego',
-        '3' : 'Salida'
+        '3' : 'Cambiar idioma',
+        '4' : 'Salida'
         },
         'en' : {
         '1' : 'Start new game',
         '2' : 'Show manual',
-        '3' : 'Exit'
+        '3' : 'Change language',
+        '4' : 'Exit'
         },
     }
     print('--------------------------------')
-    lang = input('Indique el idioma (en/es): ').lower()
+    lang = LANG_ACTUAL
 
     if lang not in mi_menu:
         print('Idioma no válido. Por favor, ingrese "en" o "es".')
@@ -288,10 +307,15 @@ def menu():
 
 
     if opt == '1':
-        juego()
+        if NIVEL_ACTUAL <= 2:
+            juego()
+            menu()
     if opt == '2':
         manual(lang)
         menu()
     elif opt == '3':
+        cambiar_idioma()
+        menu()
+    elif opt == '4':
         print('Nos vemos la próxima.' if lang == 'es' else 'See you next time.')
 menu()
